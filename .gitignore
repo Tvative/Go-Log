@@ -1,0 +1,15 @@
+# Ignore Files by Type
+
+*.tmp
+*.swp
+*.env
+
+# Ignore Files
+
+# Ignore Directories
+
+.trash/
+.vscode/
+.idea/
+
+Export/
