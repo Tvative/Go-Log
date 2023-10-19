@@ -1,0 +1,34 @@
+# Go Log
+#
+# Copyright (c) 2023 Tvative
+# All Rights Reserved
+#
+# Use of this source code is governed by
+# certain licenses found in the LICENSE file
+
+version: '3'
+
+env:
+  DIR_EXP: "Export/"
+  DIR_SRC: "Source/"
+  DIR_TST: "Test/"
+
+  LOG_TST: "{{.DIR_TST}}UnitTest.go"
+  LOG_EXE: "{{.DIR_EXP}}Log"
+
+tasks:
+  UNIT_TEST:
+    desc: Unit Test Go Log Package
+    platform:
+      - linux/amd64
+    cmds:
+      - task: BUILD
+      - ./${LOG_EXE}
+
+  BUILD:
+    desc: Build Go Log Package
+    internal: true
+    platform:
+      - linux/amd64
+    cmds:
+      - go build -o ${LOG_EXE} ${LOG_TST}
