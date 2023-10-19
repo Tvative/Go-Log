@@ -21,9 +21,9 @@ jobs:
 
       - name: Setup taskfile build system
         run: |
-        sudo snap install task --classic
-        task --version
+          sudo snap install task --classic
+          task --version
 
       - name: Perform taskfile
         run: |
-        task UNIT_TEST
+          task UNIT_TEST
