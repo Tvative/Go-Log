@@ -12,18 +12,18 @@ on:
 
 jobs:
   test_package:
-   name: Test Go Log Package
-   runs-on: ubuntu-latest
+    name: Test Go Log Package
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout repository code
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
 
-    - name: Setup taskfile build system
-      run: |
+      - name: Setup taskfile build system
+        run: |
         sudo snap install task --classic
         task --version
 
-    - name: Perform taskfile
-      run: |
+      - name: Perform taskfile
+        run: |
         task UNIT_TEST
