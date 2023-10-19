@@ -1,0 +1,29 @@
+# Go Log Package Test
+#
+# GitHub Workflow Script
+
+name: Go Log Package Test
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test_package:
+   name: Test Go Log Package
+   runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v3
+
+    - name: Setup taskfile build system
+      run: |
+        sudo snap install task --classic
+        task --version
+
+    - name: Perform taskfile
+      run: |
+        task UNIT_TEST
