@@ -90,11 +90,11 @@ func (logData *LogData) Print(needFileOutput bool, needTerminalOutput bool,
 
 	updateMessage = generatedTime + messageType + messageContent
 
-	if needFileOutput == true {
+	if needFileOutput {
 		fmt.Fprintln(logData.logDestination, updateMessage)
 	}
 
-	if needTerminalOutput == true && needTerminalColoredOutput == true {
+	if needTerminalOutput && needTerminalColoredOutput {
 		var colorCode string
 
 		switch messageType {
@@ -109,7 +109,7 @@ func (logData *LogData) Print(needFileOutput bool, needTerminalOutput bool,
 		}
 
 		fmt.Println(colorCode + updateMessage + ColorDefault)
-	} else if needTerminalOutput == true {
+	} else if needTerminalOutput {
 		fmt.Println(updateMessage)
 	}
 
