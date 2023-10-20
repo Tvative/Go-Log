@@ -22,4 +22,13 @@ func main() {
 }
 
 func testLog() {
+	logData.LogP("Sample log message 01")
+	logData.LogP("Sample log message 02")
+	logData.LogP("Sample log message 03")
+	logData.LogP("Sample log message 04")
+
+	logData.LogF("Sample log message 01")
+	logData.LogF("Sample log message 02")
+	logData.LogF("Sample log message 03")
+	logData.LogF("Sample log message 04")
 }
