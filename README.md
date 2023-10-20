@@ -63,6 +63,8 @@ the provided logging functions
 
 For detailed documentation, check the [package](https://pkg.go.dev/github.com/Tvative/Go-Log) for this project
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/Tvative/Go-Log.svg)](https://pkg.go.dev/github.com/Tvative/Go-Log)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
