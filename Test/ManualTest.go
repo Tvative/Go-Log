@@ -8,7 +8,7 @@
 
 package main
 
-import goLog "github.com/Tvative/Go-Log/Source"
+import goLog "github.com/Tvative/Go-Log"
 
 var logData *goLog.LogData
 
