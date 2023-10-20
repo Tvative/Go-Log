@@ -112,7 +112,7 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 		fmt.Println(updateMessage)
 	}
 
-	if messageContent == MessageFatal {
+	if messageType == MessageFatal {
 		os.Exit(1)
 	}
 }
