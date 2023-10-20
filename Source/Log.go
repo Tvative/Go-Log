@@ -11,17 +11,17 @@ package GoLog
 // LogP logs a message to the terminal with normal formatting
 
 func (logData LogData) LogP(messageContent string) {
-	go logData.Print(false, true, false, MessageNormal, messageContent)
+	logData.Print(false, true, false, MessageNormal, messageContent)
 }
 
 // LogPC logs a message to the terminal with colored formatting
 
 func (logData LogData) LogPC(messageContent string) {
-	go logData.Print(false, true, true, MessageNormal, messageContent)
+	logData.Print(false, true, true, MessageNormal, messageContent)
 }
 
 // LogF logs a message to the log file
 
 func (logData LogData) LogF(messageContent string) {
-	go logData.Print(true, false, false, MessageNormal, messageContent)
+	logData.Print(true, false, false, MessageNormal, messageContent)
 }
