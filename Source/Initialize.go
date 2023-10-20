@@ -37,9 +37,9 @@ const (
 // MessageWarning represents a warning message identifier.
 
 const (
-	MessageNormal  string = " | NORMAL  | "
-	MessageFatal   string = " | FATAL   | "
-	MessageWarning string = " | WARNING | "
+	MessageNormal  string = " [ INFORMATION ] "
+	MessageFatal   string = " [ ERROR ] "
+	MessageWarning string = " [ WARNING ] "
 )
 
 // Initialize initializes the log data with the provided file destination
@@ -52,16 +52,15 @@ const (
 // Returns:
 // 	bool: true if the file was successfully opened, false otherwise
 
-func (logData *LogData) Initialize(fileDestination string) bool {
-	fileDescriptor, openError := os.OpenFile(fileDestination, os.O_CREATE|os.O_WRONLY, 0644)
+func (logData *LogData) Initialize(fileDestination string) (bool, string) {
+	fileDescriptor, openError := os.Create(fileDestination)
 
 	if openError != nil {
-		fmt.Println("Unable to open input file because ", openError)
-		return false
+		return false, openError.Error()
 	}
 
 	logData.logDestination = fileDescriptor
-	return true
+	return true, ""
 }
 
 // Print writes the log message to the specified output destinations
