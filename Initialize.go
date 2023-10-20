@@ -73,7 +73,7 @@ func (logData *LogData) Initialize(fileDestination string) (bool, string) {
 // 	messageType: The message type to use for terminal output type
 // 	messageContent: The content of the log message
 
-func (logData *LogData) Print(needFileOutput bool, needTerminalOutput bool,
+func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool,
 	needTerminalColoredOutput bool, messageType string,
 	messageContent string) {
 	var updateMessage string
