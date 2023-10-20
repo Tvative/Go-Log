@@ -26,4 +26,4 @@ jobs:
 
       - name: Perform taskfile
         run: |
-          task UNIT_TEST
+          task MANUAL_TEST
