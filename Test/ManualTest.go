@@ -19,6 +19,7 @@ func main() {
 	logData.Initialize(fileDestination)
 
 	testLog()
+	testFatal()
 }
 
 func testLog() {
@@ -31,4 +32,21 @@ func testLog() {
 	logData.LogF("Sample log message 02")
 	logData.LogF("Sample log message 03")
 	logData.LogF("Sample log message 04")
+}
+
+func testFatal() {
+	logData.FatalP("Sample fatal log message 01")
+	logData.FatalP("Sample fatal log message 02")
+	logData.FatalP("Sample fatal log message 03")
+	logData.FatalP("Sample fatal log message 04")
+
+	logData.FatalPC("Sample fatal log message 01")
+	logData.FatalPC("Sample fatal log message 02")
+	logData.FatalPC("Sample fatal log message 03")
+	logData.FatalPC("Sample fatal log message 04")
+
+	logData.FatalF("Sample fatal log message 01")
+	logData.FatalF("Sample fatal log message 02")
+	logData.FatalF("Sample fatal log message 03")
+	logData.FatalF("Sample fatal log message 04")
 }
