@@ -57,7 +57,7 @@ func main() {
 ```
 
 Make sure to import the `github.com/Tvative/Go-Log` package and create a LogData instance to use
-the provided logging functions.
+the provided logging functions
 
 ## Documentation
 
