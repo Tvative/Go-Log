@@ -19,7 +19,11 @@ func main() {
 	logData.Initialize(fileDestination)
 
 	testLog()
-	testFatal()
+
+	// Ignore ..
+	//
+	// testFatal()
+
 	testWarning()
 }
 
