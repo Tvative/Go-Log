@@ -1,5 +1,6 @@
 # Ignore Files by Type
 
+*.log
 *.tmp
 *.swp
 *.env
