@@ -17,6 +17,13 @@ env:
   LOG_EXE: "{{.DIR_EXP}}Log"
 
 tasks:
+  CLEAN:
+    desc: Clean Temporary Files / Directories
+    platform:
+      - linux/amd64
+    cmds:
+      - rm ${DIR_TST}*.log
+
   MANUAL_TEST:
     desc: Unit Test Go Log Package
     platform:
