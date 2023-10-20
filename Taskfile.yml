@@ -23,6 +23,7 @@ tasks:
       - linux/amd64
     cmds:
       - rm ${DIR_TST}*.log
+      - rm ${LOG_EXE}
 
   MANUAL_TEST:
     desc: Unit Test Go Log Package
