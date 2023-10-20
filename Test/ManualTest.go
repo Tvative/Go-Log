@@ -20,6 +20,7 @@ func main() {
 
 	testLog()
 	testFatal()
+	testWarning()
 }
 
 func testLog() {
@@ -49,4 +50,21 @@ func testFatal() {
 	logData.FatalF("Sample fatal log message 02")
 	logData.FatalF("Sample fatal log message 03")
 	logData.FatalF("Sample fatal log message 04")
+}
+
+func testWarning() {
+	logData.WarningP("Sample warning log message 01")
+	logData.WarningP("Sample warning log message 02")
+	logData.WarningP("Sample warning log message 03")
+	logData.WarningP("Sample warning log message 04")
+
+	logData.WarningPC("Sample warning log message 01")
+	logData.WarningPC("Sample warning log message 02")
+	logData.WarningPC("Sample warning log message 03")
+	logData.WarningPC("Sample warning log message 04")
+
+	logData.WarningF("Sample warning log message 01")
+	logData.WarningF("Sample warning log message 02")
+	logData.WarningF("Sample warning log message 03")
+	logData.WarningF("Sample warning log message 04")
 }
