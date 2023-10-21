@@ -9,7 +9,6 @@
 package GoLog
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 	"strconv"
@@ -76,9 +75,8 @@ func (logData *LogData) Initialize(fileDestination string) (bool, string) {
 
 func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool,
 	needTerminalColoredOutput bool, messageType string,
-	jsonContent string, messageContent ...any) {
+	jsonContent map[string]interface{}, messageContent ...any) {
 	var messagePrefix string
-	var jsonData map[string]interface{}
 
 	// Generate message prefix
 
@@ -93,25 +91,14 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 
 	messagePrefix = generatedTime + messageType
 
-	// Extract JSON content
-
-	if jsonContent != "" {
-		jsonError := json.Unmarshal([]byte(jsonContent), &jsonData)
-
-		if jsonError != nil {
-			fmt.Println("Unable to unmarshal JSON because ", jsonError)
-			return
-		}
-	}
-
 	// Print to the file
 
 	if needFileOutput {
 		fmt.Fprint(logData.logDestination, messagePrefix)
 		fmt.Fprint(logData.logDestination, messageContent...)
 
-		if jsonContent != "" {
-			logData.generateJSON(true, false, jsonData)
+		if jsonContent != nil {
+			logData.generateJSON(true, false, jsonContent)
 		}
 
 		fmt.Fprintln(logData.logDestination)
@@ -136,8 +123,8 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 		fmt.Print(colorCode, messagePrefix)
 		fmt.Print(messageContent...)
 
-		if jsonContent != "" {
-			logData.generateJSON(false, true, jsonData)
+		if jsonContent != nil {
+			logData.generateJSON(false, true, jsonContent)
 		}
 
 		fmt.Println(ColorDefault)
@@ -145,8 +132,8 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 		fmt.Print(messagePrefix)
 		fmt.Print(messageContent...)
 
-		if jsonContent != "" {
-			logData.generateJSON(false, true, jsonData)
+		if jsonContent != nil {
+			logData.generateJSON(false, true, jsonContent)
 		}
 
 		fmt.Println()

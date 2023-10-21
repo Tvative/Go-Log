@@ -28,65 +28,65 @@ func main() {
 }
 
 func testLog() {
-	jsonString := `{
+	jsonString := map[string]interface{}{
 		"key_01": "a",
 		"key_02": 1,
-		"key_03": "B"
-	}`
+		"key_03": "B",
+	}
 
-	logData.LogP("", "Sample log message 01", "111")
-	logData.LogP(jsonString, "Sample log message 02")
-	logData.LogP("", "Sample log message 03")
-	logData.LogP(jsonString, "Sample log message 04")
+	logData.Log(nil, "Sample log message 01", "111")
+	logData.Log(jsonString, "Sample log message 02")
+	logData.Log(nil, "Sample log message 03")
+	logData.Log(jsonString, "Sample log message 04")
 
-	logData.LogF("", "Sample log message 01")
-	logData.LogF(jsonString, "Sample log message 02")
-	logData.LogF("", "Sample log message 03")
-	logData.LogF(jsonString, "Sample log message 04")
+	logData.FLog(nil, "Sample log message 01")
+	logData.FLog(jsonString, "Sample log message 02")
+	logData.FLog(nil, "Sample log message 03")
+	logData.FLog(jsonString, "Sample log message 04")
 }
 
 func testFatal() {
-	jsonString := `{
+	jsonString := map[string]interface{}{
 		"key_01": "a",
 		"key_02": 1,
-		"key_03": "B"
-	}`
+		"key_03": "B",
+	}
 
-	logData.FatalP("", "Sample fatal log message 01")
-	logData.FatalP(jsonString, "Sample fatal log message 02")
-	logData.FatalP("", "Sample fatal log message 03")
-	logData.FatalP(jsonString, "Sample fatal log message 04")
+	logData.Fatal(nil, "Sample fatal log message 01")
+	logData.Fatal(jsonString, "Sample fatal log message 02")
+	logData.Fatal(nil, "Sample fatal log message 03")
+	logData.Fatal(jsonString, "Sample fatal log message 04")
 
-	logData.FatalPC("", "Sample fatal log message 01")
-	logData.FatalPC(jsonString, "Sample fatal log message 02")
-	logData.FatalPC("", "Sample fatal log message 03")
-	logData.FatalPC(jsonString, "Sample fatal log message 04")
+	logData.FatalC(nil, "Sample fatal log message 01")
+	logData.FatalC(jsonString, "Sample fatal log message 02")
+	logData.FatalC(nil, "Sample fatal log message 03")
+	logData.FatalC(jsonString, "Sample fatal log message 04")
 
-	logData.FatalF("", "Sample fatal log message 01")
-	logData.FatalF(jsonString, "Sample fatal log message 02")
-	logData.FatalF("", "Sample fatal log message 03")
-	logData.FatalF(jsonString, "Sample fatal log message 04")
+	logData.FFatal(nil, "Sample fatal log message 01")
+	logData.FFatal(jsonString, "Sample fatal log message 02")
+	logData.FFatal(nil, "Sample fatal log message 03")
+	logData.FFatal(jsonString, "Sample fatal log message 04")
 }
 
 func testWarning() {
-	jsonString := `{
+	jsonString := map[string]interface{}{
 		"key_01": "a",
 		"key_02": 1,
-		"key_03": "B"
-	}`
+		"key_03": "B",
+	}
 
-	logData.WarningP("", "Sample warning log message 01")
-	logData.WarningP(jsonString, "Sample warning log message 02")
-	logData.WarningP("", "Sample warning log message 03")
-	logData.WarningP(jsonString, "Sample warning log message 04")
+	logData.Warning(nil, "Sample warning log message 01")
+	logData.Warning(jsonString, "Sample warning log message 02")
+	logData.Warning(nil, "Sample warning log message 03")
+	logData.Warning(jsonString, "Sample warning log message 04")
 
-	logData.WarningPC("", "Sample warning log message 01")
-	logData.WarningPC(jsonString, "Sample warning log message 02")
-	logData.WarningPC("", "Sample warning log message 03")
-	logData.WarningPC(jsonString, "Sample warning log message 04")
+	logData.WarningC(nil, "Sample warning log message 01")
+	logData.WarningC(jsonString, "Sample warning log message 02")
+	logData.WarningC(nil, "Sample warning log message 03")
+	logData.WarningC(jsonString, "Sample warning log message 04")
 
-	logData.WarningF("", "Sample warning log message 01")
-	logData.WarningF(jsonString, "Sample warning log message 02")
-	logData.WarningF("", "Sample warning log message 03")
-	logData.WarningF(jsonString, "Sample warning log message 04")
+	logData.FWarning(nil, "Sample warning log message 01")
+	logData.FWarning(jsonString, "Sample warning log message 02")
+	logData.FWarning(nil, "Sample warning log message 03")
+	logData.FWarning(jsonString, "Sample warning log message 04")
 }
