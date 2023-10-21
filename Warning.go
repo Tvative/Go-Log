@@ -8,20 +8,20 @@
 
 package GoLog
 
-// WarningP logs a message to the terminal with warning formatting
+// Warning logs a message to the terminal with warning formatting
 
-func (logData LogData) WarningP(jsonContent string, messageContent ...any) {
+func (logData LogData) Warning(jsonContent map[string]interface{}, messageContent ...any) {
 	logData.printOutPut(false, true, false, MessageWarning, jsonContent, messageContent...)
 }
 
-// WarningPC logs a message to the terminal with warning formatting
+// WarningC logs a message to the terminal with warning formatting
 
-func (logData LogData) WarningPC(jsonContent string, messageContent ...any) {
+func (logData LogData) WarningC(jsonContent map[string]interface{}, messageContent ...any) {
 	logData.printOutPut(false, true, true, MessageWarning, jsonContent, messageContent...)
 }
 
-// WarningF logs a warning message to the log file
+// FWarning logs a warning message to the log file
 
-func (logData LogData) WarningF(jsonContent string, messageContent ...any) {
+func (logData LogData) FWarning(jsonContent map[string]interface{}, messageContent ...any) {
 	logData.printOutPut(true, false, false, MessageWarning, jsonContent, messageContent...)
 }
