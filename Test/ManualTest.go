@@ -28,7 +28,7 @@ func main() {
 }
 
 func testLog() {
-	logData.LogP("Sample log message 01")
+	logData.LogP("Sample log message 01", "111")
 	logData.LogP("Sample log message 02")
 	logData.LogP("Sample log message 03")
 	logData.LogP("Sample log message 04")

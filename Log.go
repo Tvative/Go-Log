@@ -10,12 +10,12 @@ package GoLog
 
 // LogP logs a message to the terminal with normal formatting
 
-func (logData LogData) LogP(messageContent string) {
-	logData.printOutPut(false, true, false, MessageNormal, messageContent)
+func (logData LogData) LogP(messageContent ...any) {
+	logData.printOutPut(false, true, false, MessageNormal, messageContent...)
 }
 
 // LogF logs a message to the log file
 
-func (logData LogData) LogF(messageContent string) {
-	logData.printOutPut(true, false, false, MessageNormal, messageContent)
+func (logData LogData) LogF(messageContent ...any) {
+	logData.printOutPut(true, false, false, MessageNormal, messageContent...)
 }
