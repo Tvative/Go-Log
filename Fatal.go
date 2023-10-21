@@ -10,18 +10,18 @@ package GoLog
 
 // FatalP logs a message to the terminal with fatal formatting
 
-func (logData LogData) FatalP(messageContent ...any) {
-	logData.printOutPut(false, true, false, MessageFatal, messageContent...)
+func (logData LogData) FatalP(jsonContent string, messageContent ...any) {
+	logData.printOutPut(false, true, false, MessageFatal, jsonContent, messageContent...)
 }
 
 // FatalPC logs a message to the terminal with fatal formatting
 
-func (logData LogData) FatalPC(messageContent ...any) {
-	logData.printOutPut(false, true, true, MessageFatal, messageContent...)
+func (logData LogData) FatalPC(jsonContent string, messageContent ...any) {
+	logData.printOutPut(false, true, true, MessageFatal, jsonContent, messageContent...)
 }
 
 // FatalF logs a fatal message to the log file
 
-func (logData LogData) FatalF(messageContent ...any) {
-	logData.printOutPut(true, false, false, MessageFatal, messageContent...)
+func (logData LogData) FatalF(jsonContent string, messageContent ...any) {
+	logData.printOutPut(true, false, false, MessageFatal, jsonContent, messageContent...)
 }

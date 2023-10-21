@@ -22,53 +22,71 @@ func main() {
 
 	// Ignore ..
 	//
-	// testFatal()
+	testFatal()
 
 	testWarning()
 }
 
 func testLog() {
-	logData.LogP("Sample log message 01", "111")
-	logData.LogP("Sample log message 02")
-	logData.LogP("Sample log message 03")
-	logData.LogP("Sample log message 04")
+	jsonString := `{
+		"key_01": "a",
+		"key_02": 1,
+		"key_03": "B"
+	}`
 
-	logData.LogF("Sample log message 01")
-	logData.LogF("Sample log message 02")
-	logData.LogF("Sample log message 03")
-	logData.LogF("Sample log message 04")
+	logData.LogP("", "Sample log message 01", "111")
+	logData.LogP(jsonString, "Sample log message 02")
+	logData.LogP("", "Sample log message 03")
+	logData.LogP(jsonString, "Sample log message 04")
+
+	logData.LogF("", "Sample log message 01")
+	logData.LogF(jsonString, "Sample log message 02")
+	logData.LogF("", "Sample log message 03")
+	logData.LogF(jsonString, "Sample log message 04")
 }
 
 func testFatal() {
-	logData.FatalP("Sample fatal log message 01")
-	logData.FatalP("Sample fatal log message 02")
-	logData.FatalP("Sample fatal log message 03")
-	logData.FatalP("Sample fatal log message 04")
+	jsonString := `{
+		"key_01": "a",
+		"key_02": 1,
+		"key_03": "B"
+	}`
 
-	logData.FatalPC("Sample fatal log message 01")
-	logData.FatalPC("Sample fatal log message 02")
-	logData.FatalPC("Sample fatal log message 03")
-	logData.FatalPC("Sample fatal log message 04")
+	logData.FatalP("", "Sample fatal log message 01")
+	logData.FatalP(jsonString, "Sample fatal log message 02")
+	logData.FatalP("", "Sample fatal log message 03")
+	logData.FatalP(jsonString, "Sample fatal log message 04")
 
-	logData.FatalF("Sample fatal log message 01")
-	logData.FatalF("Sample fatal log message 02")
-	logData.FatalF("Sample fatal log message 03")
-	logData.FatalF("Sample fatal log message 04")
+	logData.FatalPC("", "Sample fatal log message 01")
+	logData.FatalPC(jsonString, "Sample fatal log message 02")
+	logData.FatalPC("", "Sample fatal log message 03")
+	logData.FatalPC(jsonString, "Sample fatal log message 04")
+
+	logData.FatalF("", "Sample fatal log message 01")
+	logData.FatalF(jsonString, "Sample fatal log message 02")
+	logData.FatalF("", "Sample fatal log message 03")
+	logData.FatalF(jsonString, "Sample fatal log message 04")
 }
 
 func testWarning() {
-	logData.WarningP("Sample warning log message 01")
-	logData.WarningP("Sample warning log message 02")
-	logData.WarningP("Sample warning log message 03")
-	logData.WarningP("Sample warning log message 04")
+	jsonString := `{
+		"key_01": "a",
+		"key_02": 1,
+		"key_03": "B"
+	}`
 
-	logData.WarningPC("Sample warning log message 01")
-	logData.WarningPC("Sample warning log message 02")
-	logData.WarningPC("Sample warning log message 03")
-	logData.WarningPC("Sample warning log message 04")
+	logData.WarningP("", "Sample warning log message 01")
+	logData.WarningP(jsonString, "Sample warning log message 02")
+	logData.WarningP("", "Sample warning log message 03")
+	logData.WarningP(jsonString, "Sample warning log message 04")
 
-	logData.WarningF("Sample warning log message 01")
-	logData.WarningF("Sample warning log message 02")
-	logData.WarningF("Sample warning log message 03")
-	logData.WarningF("Sample warning log message 04")
+	logData.WarningPC("", "Sample warning log message 01")
+	logData.WarningPC(jsonString, "Sample warning log message 02")
+	logData.WarningPC("", "Sample warning log message 03")
+	logData.WarningPC(jsonString, "Sample warning log message 04")
+
+	logData.WarningF("", "Sample warning log message 01")
+	logData.WarningF(jsonString, "Sample warning log message 02")
+	logData.WarningF("", "Sample warning log message 03")
+	logData.WarningF(jsonString, "Sample warning log message 04")
 }
