@@ -9,6 +9,7 @@
 package GoLog
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strconv"
@@ -75,8 +76,9 @@ func (logData *LogData) Initialize(fileDestination string) (bool, string) {
 
 func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool,
 	needTerminalColoredOutput bool, messageType string,
-	messageContent ...any) {
+	jsonContent string, messageContent ...any) {
 	var messagePrefix string
+	var jsonData map[string]interface{}
 
 	// Generate message prefix
 
@@ -91,11 +93,28 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 
 	messagePrefix = generatedTime + messageType
 
+	// Extract JSON content
+
+	if jsonContent != "" {
+		jsonError := json.Unmarshal([]byte(jsonContent), &jsonData)
+
+		if jsonError != nil {
+			fmt.Println("Unable to unmarshal JSON because ", jsonError)
+			return
+		}
+	}
+
 	// Print to the file
 
 	if needFileOutput {
 		fmt.Fprint(logData.logDestination, messagePrefix)
-		fmt.Fprintln(logData.logDestination, messageContent...)
+		fmt.Fprint(logData.logDestination, messageContent...)
+
+		if jsonContent != "" {
+			logData.generateJSON(true, false, jsonData)
+		}
+
+		fmt.Fprintln(logData.logDestination)
 	}
 
 	// Print to the terminal
@@ -116,15 +135,63 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 
 		fmt.Print(colorCode, messagePrefix)
 		fmt.Print(messageContent...)
+
+		if jsonContent != "" {
+			logData.generateJSON(false, true, jsonData)
+		}
+
 		fmt.Println(ColorDefault)
 	} else if needTerminalOutput {
 		fmt.Print(messagePrefix)
-		fmt.Println(messageContent...)
+		fmt.Print(messageContent...)
+
+		if jsonContent != "" {
+			logData.generateJSON(false, true, jsonData)
+		}
+
+		fmt.Println()
 	}
 
 	// Exit if fatal
 
 	if messageType == MessageFatal {
 		os.Exit(1)
+	}
+}
+
+// Generate and print JSON content
+//
+// Parameters:
+// 	needFileOutPut: If true, the message is written to the log file
+// 	needTerminalOutput: If true, the message is displayed on the terminal
+// 	jsonData: The JSON content of the message
+
+func (logData *LogData) generateJSON(needFileOutPut bool, needTerminalOutput bool,
+	jsonData map[string]interface{}) {
+
+	if needFileOutPut {
+		fmt.Fprint(logData.logDestination, " [")
+	}
+
+	if needTerminalOutput {
+		fmt.Print(" [")
+	}
+
+	for jsonKey, jsonValue := range jsonData {
+		if needFileOutPut {
+			fmt.Fprint(logData.logDestination, " (", jsonKey, ": ", jsonValue, ")")
+		}
+
+		if needTerminalOutput {
+			fmt.Print(" (", jsonKey, ": ", jsonValue, ")")
+		}
+	}
+
+	if needFileOutPut {
+		fmt.Fprint(logData.logDestination, " ]")
+	}
+
+	if needTerminalOutput {
+		fmt.Print(" ]")
 	}
 }
