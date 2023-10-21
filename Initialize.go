@@ -37,9 +37,9 @@ const (
 // MessageWarning represents a warning message identifier.
 
 const (
-	MessageNormal  string = " [ INFORMATION ] "
-	MessageFatal   string = " [ ERROR ] "
-	MessageWarning string = " [ WARNING ] "
+	MessageNormal  string = " [ INFO ] "
+	MessageFatal   string = " [ ERRO ] "
+	MessageWarning string = " [ WARN ] "
 )
 
 // Initialize initializes the log data with the provided file destination
@@ -75,8 +75,10 @@ func (logData *LogData) Initialize(fileDestination string) (bool, string) {
 
 func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool,
 	needTerminalColoredOutput bool, messageType string,
-	messageContent string) {
-	var updateMessage string
+	messageContent ...any) {
+	var messagePrefix string
+
+	// Generate message prefix
 
 	getTime := time.Now()
 	generateLongTime := getTime.Format("2006-01-02 15:04:05")
@@ -87,11 +89,16 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 		strconv.Itoa(generatedTimeMillSeconds) + ":" +
 		strconv.Itoa(generatedTimeNanoSeconds)
 
-	updateMessage = generatedTime + messageType + messageContent
+	messagePrefix = generatedTime + messageType
+
+	// Print to the file
 
 	if needFileOutput {
-		fmt.Fprintln(logData.logDestination, updateMessage)
+		fmt.Fprint(logData.logDestination, messagePrefix)
+		fmt.Fprintln(logData.logDestination, messageContent...)
 	}
+
+	// Print to the terminal
 
 	if needTerminalOutput && needTerminalColoredOutput {
 		var colorCode string
@@ -107,10 +114,15 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 			colorCode = ColorYellow
 		}
 
-		fmt.Println(colorCode + updateMessage + ColorDefault)
+		fmt.Print(colorCode, messagePrefix)
+		fmt.Print(messageContent...)
+		fmt.Println(ColorDefault)
 	} else if needTerminalOutput {
-		fmt.Println(updateMessage)
+		fmt.Print(messagePrefix)
+		fmt.Println(messageContent...)
 	}
+
+	// Exit if fatal
 
 	if messageType == MessageFatal {
 		os.Exit(1)
