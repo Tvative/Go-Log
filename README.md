@@ -44,15 +44,15 @@ func main() {
 
     // Log a default message to the terminal
 
-    logData.LogP("This is a normal message")
+    logData.LogP("", "This is a normal message")
 
     // Log a warning message to the terminal with colors
 
-    logData.WarningPC("This is a colored message")
+    logData.WarningPC("", "This is a colored message")
 
     // Log a fatal message to a file
 
-    logData.FatalF("This message is logged to a file")
+    logData.FatalF("", "This message is logged to a file")
 }
 ```
 
