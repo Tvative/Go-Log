@@ -10,15 +10,15 @@ package GoLog
 
 // Fatal logs a message to the terminal with fatal formatting
 func (logInstance *LogInstance) Fatal(jsonContent map[string]interface{}, messageContent ...interface{}) {
-	logInstance.printOutPut(false, true, false, MessageFatal, jsonContent, messageContent...)
+	printOutPut(logInstance, false, true, false, MessageFatal, jsonContent, messageContent...)
 }
 
 // FatalC logs a message to the terminal with fatal formatting
 func (logInstance *LogInstance) FatalC(jsonContent map[string]interface{}, messageContent ...interface{}) {
-	logInstance.printOutPut(false, true, true, MessageFatal, jsonContent, messageContent...)
+	printOutPut(logInstance, false, true, true, MessageFatal, jsonContent, messageContent...)
 }
 
 // FFatal logs a fatal message to the log file
 func (logInstance *LogInstance) FFatal(jsonContent map[string]interface{}, messageContent ...interface{}) {
-	logInstance.printOutPut(true, false, false, MessageFatal, jsonContent, messageContent...)
+	printOutPut(logInstance, true, false, false, MessageFatal, jsonContent, messageContent...)
 }
