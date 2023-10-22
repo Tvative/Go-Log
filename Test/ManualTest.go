@@ -8,13 +8,13 @@
 
 package main
 
-import goLog "github.com/Tvative/Go-Log"
+import "github.com/Tvative/Go-Log"
 
-var logInstance *goLog.LogInstance
+var logInstance *GoLog.LogInstance
 
 func main() {
 	var fileDestination = "Test/_log.log"
-	logInstance = goLog.Initialize(fileDestination)
+	logInstance = GoLog.Initialize(fileDestination)
 
 	testLog()
 
