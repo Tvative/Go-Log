@@ -6,6 +6,11 @@
 // Use of this source code is governed by
 // certain licenses found in the LICENSE file
 
+// Package GoLog provides a logging mechanism for managing log instances
+//
+// Go Log is a Go library for flexible and customizable logging. It provides
+// an easy way to log messages to both the terminal and log files. You can
+// also add color to your terminal log messages for better readability
 package GoLog
 
 import (
@@ -15,67 +20,41 @@ import (
 	"time"
 )
 
-// LogData is a struct that holds information about logging
-
-type LogData struct {
-	logDestination *os.File // logDestination is the file where the log will be written
+// A LogInstance is a struct that holds information about logging/
+type LogInstance struct {
+	// A LogDestination is the file where the log will be written/
+	logDestination *os.File
 }
 
-// ColorDefault represents the ANSI escape sequence for resetting the text color to the default
-// ColorRed represents the ANSI escape sequence for setting text color to red
-// ColorGreen represents the ANSI escape sequence for setting text color to green
-// ColorYellow represents the ANSI escape sequence for setting text color to yellow
-
 const (
-	ColorDefault string = "\x1b[0;0m"
-	ColorRed     string = "\x1b[31;1m"
-	ColorYellow  string = "\x1b[33;1m"
+	ColorDefault string = "\x1b[0;0m"  // A ColorDefault represents the ANSI escape sequence for resetting the text color to the default
+	ColorRed     string = "\x1b[31;1m" // A ColorRed represents the ANSI escape sequence for setting text color to red
+	ColorYellow  string = "\x1b[33;1m" // A ColorYellow represents the ANSI escape sequence for setting text color to yellow
 )
 
-// MessageNormal represents a normal message identifier.
-// MessageFatal represents a fatal error message identifier.
-// MessageWarning represents a warning message identifier.
-
 const (
-	MessageNormal  string = " [ INFO ] "
-	MessageFatal   string = " [ ERRO ] "
-	MessageWarning string = " [ WARN ] "
+	MessageNormal  string = " [ INFO ] " // A MessageNormal represents a normal message identifier
+	MessageFatal   string = " [ ERRO ] " // A MessageFatal represents a fatal error message identifier
+	MessageWarning string = " [ WARN ] " // A MessageWarning represents a warning message identifier
 )
 
-// Initialize initializes the log data with the provided file destination
+// An Initialize the log data with the provided file destination
 // It opens the file specified by fileDestination and prepares it for writing
 // If the file cannot be opened, it returns false along with an error message
-//
-// Parameters:
-// 	fileDestination: The path to the log file.
-//
-// Returns:
-// 	bool: true if the file was successfully opened, false otherwise
-
-func (logData *LogData) Initialize(fileDestination string) (bool, string) {
-	fileDescriptor, openError := os.Create(fileDestination)
+func Initialize(logDestination string) *LogInstance {
+	fileDescriptor, openError := os.Create(logDestination)
 
 	if openError != nil {
-		return false, openError.Error()
+		return nil
 	}
 
-	logData.logDestination = fileDescriptor
-	return true, ""
+	return &LogInstance{fileDescriptor}
 }
 
-// Print writes the log message to the specified output destinations
-//
-// Parameters:
-// 	logData: The LogData instance
-// 	needFileOutput: If true, the message is written to the log file
-// 	needTerminalOutput: If true, the message is displayed on the terminal
-// 	needTerminalColoredOutput: If true, the terminal output is colored
-// 	messageType: The message type to use for terminal output type
-// 	messageContent: The content of the log message
-
-func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool,
+// A printOutPut Print writes the log message to the specified output destinations
+func (logInstance *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput bool,
 	needTerminalColoredOutput bool, messageType string,
-	jsonContent map[string]interface{}, messageContent ...any) {
+	jsonContent map[string]interface{}, messageContent ...interface{}) {
 	var messagePrefix string
 
 	// Generate message prefix
@@ -94,14 +73,14 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 	// Print to the file
 
 	if needFileOutput {
-		fmt.Fprint(logData.logDestination, messagePrefix)
-		fmt.Fprint(logData.logDestination, messageContent...)
+		fmt.Fprint(logInstance.logDestination, messagePrefix)
+		fmt.Fprint(logInstance.logDestination, messageContent...)
 
 		if jsonContent != nil {
-			logData.generateJSON(true, false, jsonContent)
+			logInstance.generateJSON(true, false, jsonContent)
 		}
 
-		fmt.Fprintln(logData.logDestination)
+		fmt.Fprintln(logInstance.logDestination)
 	}
 
 	// Print to the terminal
@@ -124,7 +103,7 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 		fmt.Print(messageContent...)
 
 		if jsonContent != nil {
-			logData.generateJSON(false, true, jsonContent)
+			logInstance.generateJSON(false, true, jsonContent)
 		}
 
 		fmt.Println(ColorDefault)
@@ -133,7 +112,7 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 		fmt.Print(messageContent...)
 
 		if jsonContent != nil {
-			logData.generateJSON(false, true, jsonContent)
+			logInstance.generateJSON(false, true, jsonContent)
 		}
 
 		fmt.Println()
@@ -146,18 +125,12 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 	}
 }
 
-// Generate and print JSON content
-//
-// Parameters:
-// 	needFileOutPut: If true, the message is written to the log file
-// 	needTerminalOutput: If true, the message is displayed on the terminal
-// 	jsonData: The JSON content of the message
-
-func (logData *LogData) generateJSON(needFileOutPut bool, needTerminalOutput bool,
+// A generateJSON Generate and print JSON content
+func (logInstance *LogInstance) generateJSON(needFileOutPut bool, needTerminalOutput bool,
 	jsonData map[string]interface{}) {
 
 	if needFileOutPut {
-		fmt.Fprint(logData.logDestination, " [")
+		fmt.Fprint(logInstance.logDestination, " [")
 	}
 
 	if needTerminalOutput {
@@ -166,7 +139,7 @@ func (logData *LogData) generateJSON(needFileOutPut bool, needTerminalOutput boo
 
 	for jsonKey, jsonValue := range jsonData {
 		if needFileOutPut {
-			fmt.Fprint(logData.logDestination, " (", jsonKey, ": ", jsonValue, ")")
+			fmt.Fprint(logInstance.logDestination, " (", jsonKey, ": ", jsonValue, ")")
 		}
 
 		if needTerminalOutput {
@@ -175,7 +148,7 @@ func (logData *LogData) generateJSON(needFileOutPut bool, needTerminalOutput boo
 	}
 
 	if needFileOutPut {
-		fmt.Fprint(logData.logDestination, " ]")
+		fmt.Fprint(logInstance.logDestination, " ]")
 	}
 
 	if needTerminalOutput {
