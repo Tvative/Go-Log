@@ -22,8 +22,7 @@ import (
 
 // A LogInstance is a struct that holds information about logging/
 type LogInstance struct {
-	// A LogDestination is the file where the log will be written/
-	logDestination *os.File
+	logDestination *os.File // A LogDestination is the file where the log will be written/
 }
 
 const (
