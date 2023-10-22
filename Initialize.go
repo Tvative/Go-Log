@@ -22,7 +22,7 @@ import (
 
 // LogInstance is a struct that holds information about logging/
 type LogInstance struct {
-	logDestination *os.File // LogDestination is the file where the log will be written/
+	LogDestination *os.File // LogDestination is the file where the log will be written/
 }
 
 const (
@@ -72,14 +72,14 @@ func (logInstance *LogInstance) printOutPut(needFileOutput bool, needTerminalOut
 	// Print to the file
 
 	if needFileOutput {
-		fmt.Fprint(logInstance.logDestination, messagePrefix)
-		fmt.Fprint(logInstance.logDestination, messageContent...)
+		fmt.Fprint(logInstance.LogDestination, messagePrefix)
+		fmt.Fprint(logInstance.LogDestination, messageContent...)
 
 		if jsonContent != nil {
 			logInstance.generateJSON(true, false, jsonContent)
 		}
 
-		fmt.Fprintln(logInstance.logDestination)
+		fmt.Fprintln(logInstance.LogDestination)
 	}
 
 	// Print to the terminal
@@ -128,7 +128,7 @@ func (logInstance *LogInstance) printOutPut(needFileOutput bool, needTerminalOut
 func (logInstance *LogInstance) generateJSON(needFileOutPut bool, needTerminalOutput bool,
 	jsonData map[string]interface{}) {
 	if needFileOutPut {
-		fmt.Fprint(logInstance.logDestination, " [")
+		fmt.Fprint(logInstance.LogDestination, " [")
 	}
 
 	if needTerminalOutput {
@@ -137,7 +137,7 @@ func (logInstance *LogInstance) generateJSON(needFileOutPut bool, needTerminalOu
 
 	for jsonKey, jsonValue := range jsonData {
 		if needFileOutPut {
-			fmt.Fprint(logInstance.logDestination, " (", jsonKey, ": ", jsonValue, ")")
+			fmt.Fprint(logInstance.LogDestination, " (", jsonKey, ": ", jsonValue, ")")
 		}
 
 		if needTerminalOutput {
@@ -146,7 +146,7 @@ func (logInstance *LogInstance) generateJSON(needFileOutPut bool, needTerminalOu
 	}
 
 	if needFileOutPut {
-		fmt.Fprint(logInstance.logDestination, " ]")
+		fmt.Fprint(logInstance.LogDestination, " ]")
 	}
 
 	if needTerminalOutput {
