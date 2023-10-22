@@ -41,7 +41,7 @@ func main() {
 	var fileDestination = "Test/_log.log"
 	logInstance = GoLog.Initialize(fileDestination)
 
-    jsonString := map[string]interface{}{
+	jsonString := map[string]interface{}{
 		"key_01": "a",
 		"key_02": 1,
 		"key_03": 1.5,
