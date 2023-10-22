@@ -8,12 +8,12 @@
 
 package GoLog
 
-// A Log logs a message to the terminal with normal formatting
+// Log logs a message to the terminal with normal formatting
 func (logInstance *LogInstance) Log(jsonContent map[string]interface{}, messageContent ...interface{}) {
 	logInstance.printOutPut(false, true, false, MessageNormal, jsonContent, messageContent...)
 }
 
-// A FLog logs a message to the log file
+// FLog logs a message to the log file
 func (logInstance *LogInstance) FLog(jsonContent map[string]interface{}, messageContent ...interface{}) {
 	logInstance.printOutPut(true, false, false, MessageNormal, jsonContent, messageContent...)
 }

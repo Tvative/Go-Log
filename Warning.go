@@ -8,17 +8,17 @@
 
 package GoLog
 
-// A Warning logs a message to the terminal with warning formatting
+// Warning logs a message to the terminal with warning formatting
 func (logInstance *LogInstance) Warning(jsonContent map[string]interface{}, messageContent ...interface{}) {
 	logInstance.printOutPut(false, true, false, MessageWarning, jsonContent, messageContent...)
 }
 
-// A WarningC logs a message to the terminal with warning formatting
+// WarningC logs a message to the terminal with warning formatting
 func (logInstance *LogInstance) WarningC(jsonContent map[string]interface{}, messageContent ...interface{}) {
 	logInstance.printOutPut(false, true, true, MessageWarning, jsonContent, messageContent...)
 }
 
-// A FWarning logs a warning message to the log file
+// FWarning logs a warning message to the log file
 func (logInstance *LogInstance) FWarning(jsonContent map[string]interface{}, messageContent ...interface{}) {
 	logInstance.printOutPut(true, false, false, MessageWarning, jsonContent, messageContent...)
 }

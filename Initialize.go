@@ -20,22 +20,21 @@ import (
 	"time"
 )
 
-// A LogInstance is a struct that holds information about logging/
+// LogInstance is a struct that holds information about logging/
 type LogInstance struct {
-	// A LogDestination is the file where the log will be written/
-	logDestination *os.File
+	logDestination *os.File // LogDestination is the file where the log will be written/
 }
 
 const (
-	ColorDefault string = "\x1b[0;0m"  // A ColorDefault represents the ANSI escape sequence for resetting the text color to the default
-	ColorRed     string = "\x1b[31;1m" // A ColorRed represents the ANSI escape sequence for setting text color to red
-	ColorYellow  string = "\x1b[33;1m" // A ColorYellow represents the ANSI escape sequence for setting text color to yellow
+	ColorDefault string = "\x1b[0;0m"  // ColorDefault represents the ANSI escape sequence for resetting the text color to the default
+	ColorRed     string = "\x1b[31;1m" // ColorRed represents the ANSI escape sequence for setting text color to red
+	ColorYellow  string = "\x1b[33;1m" // ColorYellow represents the ANSI escape sequence for setting text color to yellow
 )
 
 const (
-	MessageNormal  string = " [ INFO ] " // A MessageNormal represents a normal message identifier
-	MessageFatal   string = " [ ERRO ] " // A MessageFatal represents a fatal error message identifier
-	MessageWarning string = " [ WARN ] " // A MessageWarning represents a warning message identifier
+	MessageNormal  string = " [ INFO ] " // MessageNormal represents a normal message identifier
+	MessageFatal   string = " [ ERRO ] " // MessageFatal represents a fatal error message identifier
+	MessageWarning string = " [ WARN ] " // MessageWarning represents a warning message identifier
 )
 
 // An Initialize the log data with the provided file destination
@@ -51,7 +50,7 @@ func Initialize(logDestination string) *LogInstance {
 	return &LogInstance{fileDescriptor}
 }
 
-// A printOutPut Print writes the log message to the specified output destinations
+// printOutPut Print writes the log message to the specified output destinations
 func (logInstance *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput bool,
 	needTerminalColoredOutput bool, messageType string,
 	jsonContent map[string]interface{}, messageContent ...interface{}) {
@@ -125,10 +124,9 @@ func (logInstance *LogInstance) printOutPut(needFileOutput bool, needTerminalOut
 	}
 }
 
-// A generateJSON Generate and print JSON content
+// generateJSON Generate and print JSON content
 func (logInstance *LogInstance) generateJSON(needFileOutPut bool, needTerminalOutput bool,
 	jsonData map[string]interface{}) {
-
 	if needFileOutPut {
 		fmt.Fprint(logInstance.logDestination, " [")
 	}
