@@ -51,9 +51,10 @@ func Initialize(logDestination string) *LogInstance {
 }
 
 // printOutPut Print writes the log message to the specified output destinations
-func (logInstance *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput bool,
-	needTerminalColoredOutput bool, messageType string,
-	jsonContent map[string]interface{}, messageContent ...interface{}) {
+func printOutPut(logInstance *LogInstance, needFileOutput bool,
+	needTerminalOutput bool, needTerminalColoredOutput bool,
+	messageType string, jsonContent map[string]interface{},
+	messageContent ...interface{}) {
 	var messagePrefix string
 
 	// Generate message prefix
