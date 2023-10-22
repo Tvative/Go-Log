@@ -33,26 +33,21 @@ Here's how you can use Go Log in your Go code:
 ```go
 package main
 
-import goLog "github.com/Tvative/Go-Log"
+import "github.com/Tvative/Go-Log"
 
-var logData *goLog.LogData
+var logInstance *GoLog.LogInstance
 
 func main() {
-    // Create a LogData instance
+	var fileDestination = "Test/_log.log"
+	logInstance = GoLog.Initialize(fileDestination)
 
-    logData = &goLog.LogData{}
+    jsonString := map[string]interface{}{
+		"key_01": "a",
+		"key_02": 1,
+		"key_03": 1.5,
+	}
 
-    // Log a default message to the terminal
-
-    logData.Log(nil, "This is a normal message")
-
-    // Log a warning message to the terminal with colors
-
-    logData.Warning(nil, "This is a colored message")
-
-    // Log a fatal message to a file
-
-    logData.Fatal(nil, "This message is logged to a file")
+	logInstance.Warning(jsonString, "Sample warning log message")
 }
 ```
 
