@@ -20,7 +20,7 @@ func main() {
 
 	// Ignore ..
 	//
-	TestFatal()
+	// TestFatal()
 
 	TestWarning()
 }
