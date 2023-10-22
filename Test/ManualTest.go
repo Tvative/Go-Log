@@ -10,10 +10,10 @@ package main
 
 import goLog "github.com/Tvative/Go-Log"
 
-var logData *goLog.LogData
+var logData *goLog.LogInstance
 
 func main() {
-	logData = &goLog.LogData{}
+	logData = &goLog.LogInstance{}
 
 	var fileDestination = "Test/_log.log"
 	logData.Initialize(fileDestination)

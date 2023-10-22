@@ -17,7 +17,7 @@ import (
 
 // LogData is a struct that holds information about logging
 
-type LogData struct {
+type LogInstance struct {
 	logDestination *os.File // logDestination is the file where the log will be written
 }
 
@@ -52,15 +52,17 @@ const (
 // Returns:
 // 	bool: true if the file was successfully opened, false otherwise
 
-func (logData *LogData) Initialize(fileDestination string) (bool, string) {
+func Initialize(fileDestination string) (*LogInstance, bool, string) {
+	var logData *LogInstance
+
 	fileDescriptor, openError := os.Create(fileDestination)
 
 	if openError != nil {
-		return false, openError.Error()
+		return logData, false, openError.Error()
 	}
 
 	logData.logDestination = fileDescriptor
-	return true, ""
+	return logData, true, ""
 }
 
 // Print writes the log message to the specified output destinations
@@ -73,7 +75,7 @@ func (logData *LogData) Initialize(fileDestination string) (bool, string) {
 // 	messageType: The message type to use for terminal output type
 // 	messageContent: The content of the log message
 
-func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool,
+func (logData *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput bool,
 	needTerminalColoredOutput bool, messageType string,
 	jsonContent map[string]interface{}, messageContent ...any) {
 	var messagePrefix string
@@ -153,7 +155,7 @@ func (logData *LogData) printOutPut(needFileOutput bool, needTerminalOutput bool
 // 	needTerminalOutput: If true, the message is displayed on the terminal
 // 	jsonData: The JSON content of the message
 
-func (logData *LogData) generateJSON(needFileOutPut bool, needTerminalOutput bool,
+func (logData *LogInstance) generateJSON(needFileOutPut bool, needTerminalOutput bool,
 	jsonData map[string]interface{}) {
 
 	if needFileOutPut {
