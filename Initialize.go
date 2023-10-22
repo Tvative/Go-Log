@@ -47,35 +47,33 @@ const (
 // If the file cannot be opened, it returns false along with an error message
 //
 // Parameters:
-// 	fileDestination: The path to the log file.
+// 	logDestination: The path to the log file.
 //
 // Returns:
-// 	bool: true if the file was successfully opened, false otherwise
+// 	LogInstance: Log instance
 
-func Initialize(fileDestination string) (*LogInstance, bool, string) {
-	var logData *LogInstance
-
-	fileDescriptor, openError := os.Create(fileDestination)
+func Initialize(logDestination string) *LogInstance {
+	fileDescriptor, openError := os.Create(logDestination)
 
 	if openError != nil {
-		return logData, false, openError.Error()
+		return nil
 	}
 
-	logData.logDestination = fileDescriptor
-	return logData, true, ""
+	return &LogInstance{fileDescriptor}
 }
 
 // Print writes the log message to the specified output destinations
 //
 // Parameters:
-// 	logData: The LogData instance
+// 	logInstance: The LogData instance
 // 	needFileOutput: If true, the message is written to the log file
 // 	needTerminalOutput: If true, the message is displayed on the terminal
 // 	needTerminalColoredOutput: If true, the terminal output is colored
 // 	messageType: The message type to use for terminal output type
+// 	jsonContent: The JSON content of the log message
 // 	messageContent: The content of the log message
 
-func (logData *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput bool,
+func (logInstance *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput bool,
 	needTerminalColoredOutput bool, messageType string,
 	jsonContent map[string]interface{}, messageContent ...any) {
 	var messagePrefix string
@@ -96,14 +94,14 @@ func (logData *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput 
 	// Print to the file
 
 	if needFileOutput {
-		fmt.Fprint(logData.logDestination, messagePrefix)
-		fmt.Fprint(logData.logDestination, messageContent...)
+		fmt.Fprint(logInstance.logDestination, messagePrefix)
+		fmt.Fprint(logInstance.logDestination, messageContent...)
 
 		if jsonContent != nil {
-			logData.generateJSON(true, false, jsonContent)
+			logInstance.generateJSON(true, false, jsonContent)
 		}
 
-		fmt.Fprintln(logData.logDestination)
+		fmt.Fprintln(logInstance.logDestination)
 	}
 
 	// Print to the terminal
@@ -126,7 +124,7 @@ func (logData *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput 
 		fmt.Print(messageContent...)
 
 		if jsonContent != nil {
-			logData.generateJSON(false, true, jsonContent)
+			logInstance.generateJSON(false, true, jsonContent)
 		}
 
 		fmt.Println(ColorDefault)
@@ -135,7 +133,7 @@ func (logData *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput 
 		fmt.Print(messageContent...)
 
 		if jsonContent != nil {
-			logData.generateJSON(false, true, jsonContent)
+			logInstance.generateJSON(false, true, jsonContent)
 		}
 
 		fmt.Println()
@@ -155,11 +153,11 @@ func (logData *LogInstance) printOutPut(needFileOutput bool, needTerminalOutput 
 // 	needTerminalOutput: If true, the message is displayed on the terminal
 // 	jsonData: The JSON content of the message
 
-func (logData *LogInstance) generateJSON(needFileOutPut bool, needTerminalOutput bool,
+func (logInstance *LogInstance) generateJSON(needFileOutPut bool, needTerminalOutput bool,
 	jsonData map[string]interface{}) {
 
 	if needFileOutPut {
-		fmt.Fprint(logData.logDestination, " [")
+		fmt.Fprint(logInstance.logDestination, " [")
 	}
 
 	if needTerminalOutput {
@@ -168,7 +166,7 @@ func (logData *LogInstance) generateJSON(needFileOutPut bool, needTerminalOutput
 
 	for jsonKey, jsonValue := range jsonData {
 		if needFileOutPut {
-			fmt.Fprint(logData.logDestination, " (", jsonKey, ": ", jsonValue, ")")
+			fmt.Fprint(logInstance.logDestination, " (", jsonKey, ": ", jsonValue, ")")
 		}
 
 		if needTerminalOutput {
@@ -177,7 +175,7 @@ func (logData *LogInstance) generateJSON(needFileOutPut bool, needTerminalOutput
 	}
 
 	if needFileOutPut {
-		fmt.Fprint(logData.logDestination, " ]")
+		fmt.Fprint(logInstance.logDestination, " ]")
 	}
 
 	if needTerminalOutput {

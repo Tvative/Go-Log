@@ -10,12 +10,12 @@ package GoLog
 
 // Log logs a message to the terminal with normal formatting
 
-func (logData *LogInstance) Log(jsonContent map[string]interface{}, messageContent ...any) {
-	logData.printOutPut(false, true, false, MessageNormal, jsonContent, messageContent...)
+func (logInstance *LogInstance) Log(jsonContent map[string]interface{}, messageContent ...any) {
+	logInstance.printOutPut(false, true, false, MessageNormal, jsonContent, messageContent...)
 }
 
 // FLog logs a message to the log file
 
-func (logData *LogInstance) FLog(jsonContent map[string]interface{}, messageContent ...any) {
-	logData.printOutPut(true, false, false, MessageNormal, jsonContent, messageContent...)
+func (logInstance *LogInstance) FLog(jsonContent map[string]interface{}, messageContent ...any) {
+	logInstance.printOutPut(true, false, false, MessageNormal, jsonContent, messageContent...)
 }
