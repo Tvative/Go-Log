@@ -13,7 +13,7 @@ env:
   DIR_SRC: "Source/"
   DIR_TST: "Test/"
 
-  LOG_TST_MAN: "{{.DIR_TST}}ManualTest.go"
+  LOG_TST: "{{.DIR_TST}}*.go"
   LOG_EXE: "{{.DIR_EXP}}Log"
 
 tasks:
@@ -39,4 +39,4 @@ tasks:
     platform:
       - linux/amd64
     cmds:
-      - go build -o ${LOG_EXE} ${LOG_TST_MAN}
+      - go build -o ${LOG_EXE} ${LOG_TST}
