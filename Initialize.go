@@ -40,14 +40,15 @@ const (
 // Initialize the log data with the provided file destination
 // It opens the file specified by fileDestination and prepares it for writing
 // If the file cannot be opened, it returns false along with an error message
-func Initialize(logDestination string) (*LogInstance, error) {
+func Initialize(logDestination string) *LogInstance {
 	fileDescriptor, openError := os.Create(logDestination)
 
 	if openError != nil {
-		return nil, openError
+		fmt.Println("unable to create the selected file because", openError)
+		os.Exit(1)
 	}
 
-	return &LogInstance{LogDestination: fileDescriptor}, nil
+	return &LogInstance{LogDestination: fileDescriptor}
 }
 
 // ReturnFile returns the file descriptor of the log message
