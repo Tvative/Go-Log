@@ -37,17 +37,22 @@ const (
 	MessageWarning string = " [ WARN ] " // MessageWarning represents a warning message identifier
 )
 
-// An Initialize the log data with the provided file destination
+// Initialize the log data with the provided file destination
 // It opens the file specified by fileDestination and prepares it for writing
 // If the file cannot be opened, it returns false along with an error message
-func Initialize(logDestination string) *LogInstance {
+func Initialize(logDestination string) (*LogInstance, error) {
 	fileDescriptor, openError := os.Create(logDestination)
 
 	if openError != nil {
-		return nil
+		return nil, openError
 	}
 
-	return &LogInstance{fileDescriptor}
+	return &LogInstance{LogDestination: fileDescriptor}, nil
+}
+
+// ReturnFile returns the file descriptor of the log message
+func (logInstance *LogInstance) ReturnFile() *os.File {
+	return logInstance.LogDestination
 }
 
 // printOutPut Print writes the log message to the specified output destinations
