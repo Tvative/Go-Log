@@ -9,8 +9,6 @@
 package main
 
 import (
-	"fmt"
-
 	GoLog "github.com/Tvative/Package-Go-Log"
 )
 
@@ -18,11 +16,7 @@ var logInstance *GoLog.LogInstance
 
 func main() {
 	var fileDestination = "Test/_log.log"
-	logInstance, _ = GoLog.Initialize(fileDestination)
-
-	if logInstance.ReturnFile() == nil {
-		fmt.Println("File is not available")
-	}
+	logInstance = GoLog.Initialize(fileDestination)
 
 	TestLog()
 
