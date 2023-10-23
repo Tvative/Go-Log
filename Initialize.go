@@ -44,7 +44,7 @@ func Initialize(logDestination string) *LogInstance {
 	fileDescriptor, openError := os.Create(logDestination)
 
 	if openError != nil {
-		fmt.Println("unable to create the selected file because ", openError)
+		fmt.Println("unable to create the selected file because", openError)
 		os.Exit(1)
 	}
 
