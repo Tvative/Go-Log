@@ -70,7 +70,7 @@ func printOutPut(logInstance *LogInstance, needFileOutput bool,
 	generatedTimeMillSeconds := getTime.Nanosecond() / 1e6
 	generatedTimeNanoSeconds := getTime.Nanosecond()
 
-	var generatedTime string = generateLongTime + ":" +
+	var generatedTime = generateLongTime + ":" +
 		strconv.Itoa(generatedTimeMillSeconds) + ":" +
 		strconv.Itoa(generatedTimeNanoSeconds)
 
@@ -79,14 +79,14 @@ func printOutPut(logInstance *LogInstance, needFileOutput bool,
 	// Print to the file
 
 	if needFileOutput {
-		fmt.Fprint(logInstance.LogDestination, messagePrefix)
-		fmt.Fprint(logInstance.LogDestination, messageContent...)
+		_, _ = fmt.Fprint(logInstance.LogDestination, messagePrefix)
+		_, _ = fmt.Fprint(logInstance.LogDestination, messageContent...)
 
 		if jsonContent != nil {
 			logInstance.generateJSON(true, false, jsonContent)
 		}
 
-		fmt.Fprintln(logInstance.LogDestination)
+		_, _ = fmt.Fprintln(logInstance.LogDestination)
 	}
 
 	// Print to the terminal
@@ -123,19 +123,13 @@ func printOutPut(logInstance *LogInstance, needFileOutput bool,
 
 		fmt.Println()
 	}
-
-	// Exit if fatal
-
-	if messageType == MessageFatal {
-		os.Exit(1)
-	}
 }
 
 // generateJSON Generate and print JSON content
 func (logInstance *LogInstance) generateJSON(needFileOutPut bool, needTerminalOutput bool,
 	jsonData map[string]interface{}) {
 	if needFileOutPut {
-		fmt.Fprint(logInstance.LogDestination, " [")
+		_, _ = fmt.Fprint(logInstance.LogDestination, " [")
 	}
 
 	if needTerminalOutput {
@@ -144,7 +138,7 @@ func (logInstance *LogInstance) generateJSON(needFileOutPut bool, needTerminalOu
 
 	for jsonKey, jsonValue := range jsonData {
 		if needFileOutPut {
-			fmt.Fprint(logInstance.LogDestination, " (", jsonKey, ": ", jsonValue, ")")
+			_, _ = fmt.Fprint(logInstance.LogDestination, " (", jsonKey, ": ", jsonValue, ")")
 		}
 
 		if needTerminalOutput {
@@ -153,7 +147,7 @@ func (logInstance *LogInstance) generateJSON(needFileOutPut bool, needTerminalOu
 	}
 
 	if needFileOutPut {
-		fmt.Fprint(logInstance.LogDestination, " ]")
+		_, _ = fmt.Fprint(logInstance.LogDestination, " ]")
 	}
 
 	if needTerminalOutput {

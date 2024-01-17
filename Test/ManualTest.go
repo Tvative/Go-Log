@@ -19,10 +19,6 @@ func main() {
 	logInstance = GoLog.Initialize(fileDestination)
 
 	TestLog()
-
-	// Ignore ..
-	//
-	// TestFatal()
-
+	TestFatal()
 	TestWarning()
 }
