@@ -41,7 +41,7 @@ const (
 // Log message prefix types
 const (
 	NormalLog  int = iota // NormalLog is the prefix for default log
-	SuccessLog            // SuccessLog is the prefic for success log
+	SuccessLog            // SuccessLog is the prefix for success log
 	ErrorLog              // ErrorLog is the prefix for error log
 	WarningLog            // WarningLog is the prefix for warning log
 	DebugLog              // DebugLog is the prefix for debug log
@@ -213,8 +213,11 @@ func returnJsonPrefix(prefix int) string {
 
 // parseJson converts a map to a JSON string
 func convertMapToString(jsonContent map[string]interface{}) string {
-	jsonData, err := json.Marshal(jsonContent)
+	if jsonContent == nil {
+		return ""
+	}
 
+	jsonData, err := json.Marshal(jsonContent)
 	if err != nil {
 		return ""
 	}
@@ -228,16 +231,33 @@ func (instance *Instance) printLog(logPrefix int, jsonContent map[string]interfa
 	var jsonMessage = make(map[string]interface{})
 	logTime := generateLogTime()
 
+	var defaultMessage interface{}
+	defaultMessage = fmt.Sprint(messageContent...)
+	if defaultMessage == "<nil>" {
+		defaultMessage = nil
+	}
+
+	var defaultJson interface{}
+	if jsonContent != nil {
+		defaultJson = convertMapToString(jsonContent)
+	} else {
+		defaultJson = ""
+	}
+
 	if instance.FileFormat == JsonFormat || instance.TerminalFormat == JsonFormat {
 		jsonMessage["Level"] = returnJsonPrefix(logPrefix)
 		jsonMessage["Time"] = logTime
 
 		if messageContent != nil {
-			jsonMessage["Message"] = fmt.Sprint(messageContent...)
+			jsonMessage["Message"] = defaultMessage
+		} else {
+			jsonMessage["Message"] = nil
 		}
 
 		if jsonContent != nil {
 			jsonMessage["Additional"] = jsonContent
+		} else {
+			jsonMessage["Additional"] = nil
 		}
 	}
 
@@ -247,16 +267,26 @@ func (instance *Instance) printLog(logPrefix int, jsonContent map[string]interfa
 		if instance.FileFormat == JsonFormat {
 			printToFile(instance.Destination, convertMapToString(jsonMessage))
 		} else if instance.FileFormat == DefaultFormat {
-			printToFile(instance.Destination, logTime, returnDefaultPrefix(logPrefix, true),
-				fmt.Sprint(messageContent...), convertMapToString(jsonContent))
+			if defaultMessage == nil {
+				printToFile(instance.Destination, logTime, returnDefaultPrefix(logPrefix, true),
+					defaultJson)
+			} else {
+				printToFile(instance.Destination, logTime, returnDefaultPrefix(logPrefix, true),
+					defaultMessage, defaultJson)
+			}
 		}
 	}
 
 	if instance.TerminalFormat == JsonFormat {
 		printToTerminal(convertMapToString(jsonMessage))
 	} else if instance.TerminalFormat == DefaultFormat {
-		printToTerminal(logTime, returnDefaultPrefix(logPrefix, false),
-			fmt.Sprint(messageContent...), convertMapToString(jsonContent))
+		if defaultMessage == nil {
+			printToTerminal(logTime, returnDefaultPrefix(logPrefix, false),
+				defaultJson)
+		} else {
+			printToTerminal(logTime, returnDefaultPrefix(logPrefix, false),
+				defaultMessage, defaultJson)
+		}
 	}
 }
 
