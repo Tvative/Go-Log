@@ -85,7 +85,7 @@ the provided logging functions
 
 ## Documentation
 
-For detailed documentation, check the [package](https://pkg.go.dev/github.com/Tvative/Package-Go-Log) for this project
+For detailed documentation, check the [package](https://pkg.go.dev/github.com/Tvative/Package-Go-Log/v2) for this project
 
 ## License
 
