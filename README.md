@@ -1,19 +1,36 @@
-# Go Log
+<div align="center">
+  <h1>Go Log 2.0</h1>
+  <p>A Simple Logging Library for Go Language</p>
 
-A Simple Logging Library for Go Language
+  ![Go Log Package](.readme/screen-shot.jpg)
+</div>
 
 ## Introduction
 
 Go Log is a Go library for flexible and customizable logging. It
 provides an easy way to log messages to both the terminal and log files.
-You can also add color to your terminal log messages for better readability
+You can also add color to your terminal log messages for better readability.
 
-## Features
+### Features
 
-- Log messages to the terminal with or without colors
-- Log messages to a file
-- Flexible and customizable log output
-- Simple API for logging messages
+- **Vivid Color Coding**: Experience an intuitive logging interface with color-coded messages in the terminal, making
+  log reading more user-friendly and efficient.
+- **Dual Format Support**: Flexibly switch between the traditional default format and structured JSON format, catering
+  to diverse logging needs.
+- **Web-Focused Design**: Tailored specifically for web-based applications, ensuring seamless integration and optimal
+  performance in web environments.
+- **Broad Platform Support**: Fully compatible with various operating systems including Linux, Unix, and MacOS, ensuring
+  consistent functionality across different environments.
+- **Diverse Log Levels**: Equip your logging toolkit with a wide range of log levels to suit every scenario:
+    - **Log (Default)**: General logs for routine application processes.
+    - **Success**: Highlight successful operations and milestones.
+    - **Error**: Capture and flag errors in the system.
+    - **Warning**: Warn of potential issues or misconfigurations.
+    - **Debug**: Facilitate in-depth debugging with detailed insights.
+    - **Information**: Provide informational messages about system status.
+    - **Fatal**: Report critical issues that require immediate attention.
+- **Minimalist Design**: Enjoy a clutter-free, minimalist approach that focuses on performance and ease of use, without
+  unnecessary complexities.
 
 ## Getting Started
 
@@ -35,23 +52,35 @@ package main
 
 import "github.com/Tvative/Package-Go-Log"
 
-var logInstance *GoLog.LogInstance
+// Create an instance
+
+var instance *golog.Instance
 
 func main() {
-	var fileDestination = "Test/_log.log"
-	logInstance = GoLog.Initialize(fileDestination)
+	// Initialize instance
 
-	jsonString := map[string]interface{}{
-		"key_01": "a",
-		"key_02": 1,
-		"key_03": 1.5,
+	instance = golog.Initialize()
+
+	instance.SetFile("Test/test.log")
+	instance.SetFileFormat(golog.DefaultFormat)
+	instance.SetTerminalFormat(golog.JsonFormat)
+
+	// Generate sample log message
+
+	var moreJson = map[string]interface{}{
+		"Sample": "Content",
 	}
 
-	logInstance.Warning(jsonString, "Sample warning log message")
+	var testJson = map[string]interface{}{
+		"Sample": "Content",
+		"More":   moreJson,
+	}
+
+	instance.Log(testJson, "Default Log")
 }
 ```
 
-Make sure to import the `github.com/Tvative/Package-Go-Log` package and create a LogData instance to use
+Make sure to import the `github.com/Tvative/Package-Go-Log` package and create a `golog` instance to use
 the provided logging functions
 
 ## Documentation

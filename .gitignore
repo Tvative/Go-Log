@@ -7,10 +7,10 @@
 
 # Ignore Files
 
+Log
+
 # Ignore Directories
 
 .trash/
 .vscode/
 .idea/
-
-Export/
