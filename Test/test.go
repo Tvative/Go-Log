@@ -28,5 +28,5 @@ func main() {
 	instance.Warning(testJson, "Warning Log")
 	instance.Debug(testJson, "Debug Log")
 	instance.Information(testJson, "Information Log")
-	instance.Fatal(testJson, "Fatal Log")
+	// instance.Fatal(testJson, "Fatal Log")
 }
