@@ -1,11 +1,8 @@
 <div align="center">
   <h1>Go Log 2.0</h1>
-
-  <hr>
-
   <p>A Simple Logging Library for Go Language</p>
 
-![Go Log Package](.readme/screen-shot.jpg)
+  ![Go Log Package](.readme/screen-shot.jpg)
 </div>
 
 ## Introduction
