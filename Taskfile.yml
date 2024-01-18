@@ -10,7 +10,6 @@ version: '3'
 
 env:
   DIR_EXP: "Export/"
-  DIR_SRC: "Source/"
   DIR_TST: "Test/"
 
   LOG_TST: "{{.DIR_TST}}*.go"
@@ -22,8 +21,8 @@ tasks:
     platform:
       - linux/amd64
     cmds:
-      - rm ${DIR_TST}*.log
       - rm ${LOG_EXE}
+      - rm ${DIR_TST}*.log
 
   MANUAL_TEST:
     desc: Unit Test Go Log Package
