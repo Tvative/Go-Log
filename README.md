@@ -50,7 +50,7 @@ Here's how you can use Go Log in your Go code:
 ```go
 package main
 
-import "github.com/Tvative/Package-Go-Log"
+import "github.com/Tvative/Package-Go-Log/v2"
 
 // Create an instance
 
