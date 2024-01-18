@@ -10,8 +10,8 @@ func main() {
 	instance = golog.Initialize()
 
 	instance.SetFile("Test/test.log")
-	instance.SetFileFormat(golog.DefaultFormat)
-	instance.SetTerminalFormat(golog.DefaultFormat)
+	instance.SetFileFormat(golog.JsonFormat)
+	instance.SetTerminalFormat(golog.JsonFormat)
 
 	var moreJson = map[string]interface{}{
 		"Sample": "Content",
@@ -29,4 +29,7 @@ func main() {
 	instance.Debug(testJson, "Debug Log")
 	instance.Information(testJson, "Information Log")
 	// instance.Fatal(testJson, "Fatal Log")
+
+	instance.Log(testJson, nil)
+	instance.Log(nil, "Default Log")
 }
