@@ -48,6 +48,23 @@ const (
 	InfoLog               // InfoLog is the prefix for information log
 )
 
+// Default log message prefix
+var (
+	NormalLogString  string // NormalLogString is prefix for default log
+	SuccessLogString string // SuccessLogString is prefix for success log
+	ErrorLogString   string // ErrorLogString is prefix for error log
+	WarningLogString string // WarningLogString is prefix for warning log
+	DebugLogString   string // DebugLogString is prefix for debug log
+	InfoLogString    string // InfoLogString is prefix for information log
+
+	ColoredNormalLogString  string // ColoredNormalLogString is prefix for colored default log
+	ColoredSuccessLogString string // ColoredSuccessLogString is prefix for colored success log
+	ColoredErrorLogString   string // ColoredErrorLogString is prefix for colored error log
+	ColoredWarningLogString string // ColoredWarningLogString is prefix for colored warning log
+	ColoredDebugLogString   string // ColoredDebugLogString is prefix for colored debug log
+	ColoredInfoLogString    string // ColoredInfoLogString is prefix for colored information log
+)
+
 // Instance is a struct that holds base information about logging
 type Instance struct {
 	Destination    *os.File // Destination hold the destination file for logging
@@ -70,13 +87,25 @@ func Initialize() *Instance {
 		TerminalFormat: DefaultFormat,
 	}
 
+	NormalLogString = fmt.Sprintf("%-12s>", "Log")
+	SuccessLogString = fmt.Sprintf("%-12s>", "Success")
+	ErrorLogString = fmt.Sprintf("%-12s>", "Error")
+	WarningLogString = fmt.Sprintf("%-12s>", "Warning")
+	DebugLogString = fmt.Sprintf("%-12s>", "Debug")
+	InfoLogString = fmt.Sprintf("%-12s>", "Information")
+
+	ColoredNormalLogString = CyanColor + NormalLogString + DefaultColor
+	ColoredSuccessLogString = GreenColor + SuccessLogString + DefaultColor
+	ColoredErrorLogString = RedColor + ErrorLogString + DefaultColor
+	ColoredWarningLogString = YellowColor + WarningLogString + DefaultColor
+	ColoredDebugLogString = MagentaColor + DebugLogString + DefaultColor
+	ColoredInfoLogString = BlueColor + InfoLogString + DefaultColor
 	return &instance
 }
 
 // SetFile sets the destination file for logging
 func (instance *Instance) SetFile(filePath string) {
 	descriptor, err := os.Create(filePath)
-
 	if err != nil {
 		panic(err)
 	}
@@ -149,43 +178,43 @@ func printToFile(destination *os.File, content ...interface{}) {
 // returnPrefix returns the prefix for the default log message based on the prefix type
 func returnDefaultPrefix(prefix int, isFile bool) string {
 	var (
-		NormalLogString  string
-		SuccessLogString string
-		ErrorLogString   string
-		WarningLogString string
-		DebugLogString   string
-		InfoLogString    string
+		getNormalLogString  string
+		getSuccessLogString string
+		getErrorLogString   string
+		getWarningLogString string
+		getDebugLogString   string
+		getInfoLogString    string
 	)
 
 	if isFile == true {
-		NormalLogString = "[ LOG ]"
-		SuccessLogString = "[ SUC ]"
-		ErrorLogString = "[ ERR ]"
-		WarningLogString = "[ WRN ]"
-		DebugLogString = "[ DBG ]"
-		InfoLogString = "[ INF ]"
+		getNormalLogString = NormalLogString
+		getSuccessLogString = SuccessLogString
+		getErrorLogString = ErrorLogString
+		getWarningLogString = WarningLogString
+		getDebugLogString = DebugLogString
+		getInfoLogString = InfoLogString
 	} else {
-		NormalLogString = CyanColor + "[ LOG ]" + DefaultColor
-		SuccessLogString = GreenColor + "[ SUC ]" + DefaultColor
-		ErrorLogString = RedColor + "[ ERR ]" + DefaultColor
-		WarningLogString = YellowColor + "[ WRN ]" + DefaultColor
-		DebugLogString = MagentaColor + "[ DBG ]" + DefaultColor
-		InfoLogString = BlueColor + "[ INF ]" + DefaultColor
+		getNormalLogString = ColoredNormalLogString
+		getSuccessLogString = ColoredSuccessLogString
+		getErrorLogString = ColoredErrorLogString
+		getWarningLogString = ColoredWarningLogString
+		getDebugLogString = ColoredDebugLogString
+		getInfoLogString = ColoredInfoLogString
 	}
 
 	switch prefix {
 	case NormalLog:
-		return NormalLogString
+		return getNormalLogString
 	case SuccessLog:
-		return SuccessLogString
+		return getSuccessLogString
 	case ErrorLog:
-		return ErrorLogString
+		return getErrorLogString
 	case WarningLog:
-		return WarningLogString
+		return getWarningLogString
 	case DebugLog:
-		return DebugLogString
+		return getDebugLogString
 	case InfoLog:
-		return InfoLogString
+		return getInfoLogString
 	default:
 		return ""
 	}
@@ -281,10 +310,10 @@ func (instance *Instance) printLog(logPrefix int, jsonContent map[string]interfa
 		printToTerminal(convertMapToString(jsonMessage))
 	} else if instance.TerminalFormat == DefaultFormat {
 		if defaultMessage == nil {
-			printToTerminal(logTime, returnDefaultPrefix(logPrefix, false),
+			printToTerminal(fmt.Sprintf("%-33s", logTime), fmt.Sprintf("%s", returnDefaultPrefix(logPrefix, false)),
 				defaultJson)
 		} else {
-			printToTerminal(logTime, returnDefaultPrefix(logPrefix, false),
+			printToTerminal(fmt.Sprintf("%-33s", logTime), fmt.Sprintf("%s", returnDefaultPrefix(logPrefix, false)),
 				defaultMessage, defaultJson)
 		}
 	}

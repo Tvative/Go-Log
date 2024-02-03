@@ -9,7 +9,7 @@ func main() {
 
 	instance.SetFile("Test/test.log")
 	instance.SetFileFormat(golog.JsonFormat)
-	instance.SetTerminalFormat(golog.JsonFormat)
+	instance.SetTerminalFormat(golog.DefaultFormat)
 
 	var moreJson = map[string]interface{}{
 		"Sample": "Content",
