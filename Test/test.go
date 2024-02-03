@@ -1,8 +1,6 @@
 package main
 
-import (
-	"github.com/Tvative/Package-Go-Log/v2"
-)
+import "github.com/Tvative/Go-Log/v2"
 
 var instance *golog.Instance
 

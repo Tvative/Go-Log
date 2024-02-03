@@ -40,7 +40,7 @@ To use Go Log in your Go project, you need to install it using Go modules.
 You can add it to your project with the following command:
 
 ```bash
-go get -u github.com/Tvative/Package-Go-Log/v2
+go get -u github.com/Tvative/Go-Log/v2
 ```
 
 ### Usage
@@ -50,7 +50,7 @@ Here's how you can use Go Log in your Go code:
 ```go
 package main
 
-import "github.com/Tvative/Package-Go-Log/v2"
+import "github.com/Tvative/Go-Log/v2"
 
 // Create an instance
 
@@ -80,12 +80,12 @@ func main() {
 }
 ```
 
-Make sure to import the `github.com/Tvative/Package-Go-Log/v2` package and create a `golog` instance to use
+Make sure to import the `github.com/Tvative/Go-Log/v2` package and create a `golog` instance to use
 the provided logging functions
 
 ## Documentation
 
-For detailed documentation, check the [package](https://pkg.go.dev/github.com/Tvative/Package-Go-Log/v2) for this project
+For detailed documentation, check the [package](https://pkg.go.dev/github.com/Tvative/Go-Log/v2) for this project
 
 ## License
 
